@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 
 
 /**
@@ -17,6 +18,9 @@ public class Critica implements Serializable {
 	private int idCritica;
 
 	private String critica;
+
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 
 	private String usuario;
 
@@ -42,6 +46,14 @@ public class Critica implements Serializable {
 
 	public void setCritica(String critica) {
 		this.critica = critica;
+	}
+
+	public Date getFecha() {
+		return this.fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 	public String getUsuario() {

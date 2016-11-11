@@ -5,22 +5,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class OpcionJSON {
-	@XmlElement	
-	private int opcionCode;
+
 	@XmlElement	
 	private String opcion;
 
 	public OpcionJSON() {
 	}
 	
-	public OpcionJSON(int opcionCode, String opcion) {
-		this.opcionCode=opcionCode;
+	public OpcionJSON(String opcion) {
 		this.opcion=opcion;
 	}	
-
-	public int getOpcionCode() {
-		return opcionCode;
-	}
 		
 	public String getOpcion() {
 		return opcion;

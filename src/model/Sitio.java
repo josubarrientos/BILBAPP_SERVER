@@ -27,7 +27,7 @@ public class Sitio implements Serializable {
 
 	//bi-directional many-to-one association to Opcion
 	@ManyToOne
-	@JoinColumn(name="Opcion_idOpcion")
+	@JoinColumn(name="Opcion_opcion")
 	private Opcion opcion;
 
 	public Sitio() {

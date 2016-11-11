@@ -15,8 +15,6 @@ public class Opcion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int idOpcion;
-
 	private String opcion;
 
 	//bi-directional many-to-one association to Sitio
@@ -24,14 +22,6 @@ public class Opcion implements Serializable {
 	private List<Sitio> sitios;
 
 	public Opcion() {
-	}
-
-	public int getIdOpcion() {
-		return this.idOpcion;
-	}
-
-	public void setIdOpcion(int idOpcion) {
-		this.idOpcion = idOpcion;
 	}
 
 	public String getOpcion() {
