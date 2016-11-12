@@ -10,7 +10,11 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Sitio.findAll", query="SELECT s FROM Sitio s")
+@NamedQueries({
+	@NamedQuery(name="Sitio.findAll", query="SELECT s FROM Sitio s"),
+	@NamedQuery(name="Sitio.findAllByOpcion", query="SELECT s FROM Sitio s WHERE s.opcion.opcion= :opcion")
+})
+
 public class Sitio implements Serializable {
 	private static final long serialVersionUID = 1L;
 

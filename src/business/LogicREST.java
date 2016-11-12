@@ -36,6 +36,9 @@ public class LogicREST {
 	public LogicREST() {
 	}
 	
+//////////////////////////////////	
+///////////////////RequestOpciones
+//////////////////////////////////	
 	@SuppressWarnings("unchecked")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -70,6 +73,49 @@ public class LogicREST {
 		
 	}
 	
+//////////////////////////////////
+///////////////////RequestSitios
+//////////////////////////////////
+	
+	//http://localhost:8080/BILBAPP_SERVER/rest/Bilbapp/requestSitios?opcionName=Fiesta
+	@SuppressWarnings("unchecked")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/requestSitios")	
+	public SitiosJSON SitioJSON(@QueryParam("opcionName") String opcionName) {
+		System.out.println("requestSitios: "+hsr.getRemoteAddr());
+		
+		System.out.println("SENDED: "+opcionName);
+		
+		System.out.println("DENTRO");
+		
+		List<Sitio> sitiosList=(List<Sitio>)em.createNamedQuery("Sitio.findAllByOpcion").setParameter("opcion", opcionName).getResultList();//Consultar la lista de todas las lecciones
+		
+		System.out.println("SALIDA");
+		
+		SitiosJSON sitiosJSON=new SitiosJSON();
+		List<SitioJSON> sitioJSONList=new ArrayList<SitioJSON>();
+		
+		
+		System.out.println(sitiosList.size());
+		
+		
+		for(int i=0;i<sitiosList.size();i++){//Para cada lección de la lista
+			Sitio l=sitiosList.get(i);
+			SitioJSON lJSON=new SitioJSON(l.getSitio(),l.getDireccion(),l.getPuntuacion());//Crear objeto LessonJSON, copiando lessonCode y title
+			sitioJSONList.add(lJSON);//Añadir objeto LessonJSON creado a la lista lessonJSONList
+		}
+		
+		System.out.println(sitioJSONList.size());
+		
+		sitiosJSON.setSitios(sitioJSONList);//Meter la lista lessonJSONList en el objeto lessonsJSON
+		
+		return sitiosJSON;
+		
+	}
+	
+	
+	/*
 	@SuppressWarnings("unchecked")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -102,13 +148,11 @@ public class LogicREST {
 		
 		return sitiosJSON;
 		
-	}
+	}*/
 	
-	
-	
-	
-	
-	///////////////////////////////////////
+//////////////////////////////////
+///////////////////RequestCriticas
+//////////////////////////////////
 	
 	@SuppressWarnings("unchecked")
 	@GET
