@@ -12,6 +12,7 @@ import java.util.List;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Sitio.findAll", query="SELECT s FROM Sitio s"),
+	@NamedQuery(name="Sitio.findAllBySitio", query="SELECT s FROM Sitio s WHERE s.sitio= :sitio"),
 	@NamedQuery(name="Sitio.findAllByOpcion", query="SELECT s FROM Sitio s WHERE s.opcion.opcion= :opcion")
 })
 

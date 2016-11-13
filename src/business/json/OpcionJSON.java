@@ -19,12 +19,5 @@ public class OpcionJSON {
 	public String getOpcion() {
 		return opcion;
 	}
-	
-	/*public void setLessonCode(String opcionCode) {
-		this.opcionCode=opcionCode;
-	}
-	
-	public void setTitle(String opcion) {
-		this.opcion=opcion;
-	}*/
+
 }

@@ -15,31 +15,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CriticaJSON {
 	
 	@XmlElement
-	private int idCritica;
-	@XmlElement
 	private String critica;
 	@XmlElement
 	private Date fecha;
 	@XmlElement
 	private String usuario;
-	
+	@XmlElement
+	private String sitio;
 	
 	public CriticaJSON() {
 	}
 	
-	public CriticaJSON(int idCritica, String critica, Date fecha, String usuario) {
-		this.idCritica=idCritica;
+	public CriticaJSON(String critica, Date fecha, String usuario,String sitio) {
 		this.critica=critica;
 		this.fecha=fecha;
 		this.usuario=usuario;
+		this.sitio=sitio;
 	}	
 		
-	public int getIdCritica() {
-		return idCritica;
-	}
-	public void setIdCritica(int idCritica) {
-		this.idCritica = idCritica;
-	}
 	public String getCritica() {
 		return critica;
 	}
@@ -58,6 +51,14 @@ public class CriticaJSON {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
+	public String getSitio() {
+		return sitio;
+	}
+	public void setSitio(String sitio) {
+		this.sitio = sitio;
+	}
+	
+	
 
 }
 
