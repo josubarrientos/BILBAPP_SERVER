@@ -10,7 +10,12 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Critica.findAll", query="SELECT c FROM Critica c")
+@NamedQueries({
+	@NamedQuery(name="Critica.findAll", query="SELECT c FROM Critica c"),
+	@NamedQuery(name="Critica.findAllBySitio", query="SELECT c FROM Critica c  WHERE c.sitio.sitio= :sitio")
+})
+
+
 public class Critica implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -158,6 +158,40 @@ public class LogicREST {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/requestCriticas")	
+	public CriticasJSON CriticaJSON(@QueryParam("sitioName") String sitioName) {
+	System.out.println("requestCriticas: "+hsr.getRemoteAddr());
+	
+	System.out.println("DENTRO: "+sitioName);
+	
+	List<Critica> criticasList=(List<Critica>)em.createNamedQuery("Critica.findAllBySitio").setParameter("sitio", sitioName).getResultList();//Consultar la lista de todas las lecciones
+	
+	System.out.println("SALIDA");
+	
+	CriticasJSON criticasJSON=new CriticasJSON();
+	List<CriticaJSON> criticaJSONList=new ArrayList<CriticaJSON>();
+	
+	
+	System.out.println(criticasList.size());
+	
+	
+	for(int i=0;i<criticasList.size();i++){//Para cada lección de la lista
+	Critica l=criticasList.get(i);
+	CriticaJSON lJSON=new CriticaJSON(l.getIdCritica(),l.getCritica(),l.getFecha(),l.getUsuario());//Crear objeto LessonJSON, copiando lessonCode y title
+	criticaJSONList.add(lJSON);//Añadir objeto LessonJSON creado a la lista lessonJSONList
+	}
+	
+	System.out.println(criticaJSONList.size());
+	
+	criticasJSON.setCriticas(criticaJSONList);//Meter la lista lessonJSONList en el objeto lessonsJSON
+	
+	return criticasJSON;
+	
+	}
+
+	/*@SuppressWarnings("unchecked")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/requestCriticas")	
 	public CriticasJSON CriticaJSON() {
 	System.out.println("requestCriticas: "+hsr.getRemoteAddr());
 	
@@ -186,7 +220,11 @@ public class LogicREST {
 	
 	return criticasJSON;
 	
-	}
-
-
+	}*/
+	
+//////////////////////////////
+///////////////////AddCriticas
+//////////////////////////////
+	
+	
 }
