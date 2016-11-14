@@ -1,3 +1,19 @@
+/*
+ * 
+ * Copyright (C) 2016 Josu Barrientos Bahamonde
+ * 
+ * 
+ * BILBAPP_SERVER is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * BILBAPP is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details
+ * <http://www.gnu.org/licenses/>.
+ */
+
 package business.json;
 
 
@@ -14,12 +30,12 @@ public class SitioJSON {
 	@XmlElement
 	private String direccion;
 	@XmlElement
-	private int puntuacion;
+	private float puntuacion;
 	
 	public SitioJSON() {
 	}
 	
-	public SitioJSON(String sitio, String direccion, int puntuacion) {
+	public SitioJSON(String sitio, String direccion, float puntuacion) {
 		this.sitio=sitio;
 		this.direccion=direccion;
 		this.puntuacion=puntuacion;
@@ -37,7 +53,7 @@ public class SitioJSON {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public int getPuntuacion() {
+	public float getPuntuacion() {
 		return puntuacion;
 	}
 	public void setPuntuacion(int puntuacion) {

@@ -1,3 +1,19 @@
+/*
+ * 
+ * Copyright (C) 2016 Josu Barrientos Bahamonde
+ * 
+ * 
+ * BILBAPP_SERVER is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * BILBAPP is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details
+ * <http://www.gnu.org/licenses/>.
+ */
+
 package business;
 
 import java.util.ArrayList;
@@ -128,7 +144,7 @@ public class LogicREST {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)	
 	@Path("/addCriticas")	
-	public Response addUsuario(CriticaJSON criticaJSON) {
+	public Response addCritica(CriticaJSON criticaJSON) {
 		
 	
 		System.out.println("Solicitud de añadir critica de: "+hsr.getRemoteAddr());
@@ -160,74 +176,46 @@ public class LogicREST {
 		
 	}
 	
-	/*
+//////////////////////////////////
+///////////////////AddCalificaicon
+//////////////////////////////////
+	
 	@SuppressWarnings("unchecked")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/requestSitios")	
-	public SitiosJSON SitioJSON() {
-		System.out.println("requestSitios: "+hsr.getRemoteAddr());
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)	
+	@Path("/addPuntuacion")	
+	public Response addPuntuacion(CalificacionJSON calificacionJSON) {
 		
-		System.out.println("DENTRO");
-		
-		List<Sitio> sitiosList=(List<Sitio>)em.createNamedQuery("Sitio.findAll").getResultList();//Consultar la lista de todas las lecciones
-		
-		System.out.println("SALIDA");
-		
-		SitiosJSON sitiosJSON=new SitiosJSON();
-		List<SitioJSON> sitioJSONList=new ArrayList<SitioJSON>();
-		
-		
-		System.out.println(sitiosList.size());
-		
-		
-		for(int i=0;i<sitiosList.size();i++){//Para cada lección de la lista
-			Sitio l=sitiosList.get(i);
-			SitioJSON lJSON=new SitioJSON(l.getSitio(),l.getDireccion(),l.getPuntuacion());//Crear objeto LessonJSON, copiando lessonCode y title
-			sitioJSONList.add(lJSON);//Añadir objeto LessonJSON creado a la lista lessonJSONList
-		}
-		
-		System.out.println(sitioJSONList.size());
-		
-		sitiosJSON.setSitios(sitioJSONList);//Meter la lista lessonJSONList en el objeto lessonsJSON
-		
-		return sitiosJSON;
-		
-	}*/
 	
-	/*@SuppressWarnings("unchecked")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/requestCriticas")	
-	public CriticasJSON CriticaJSON() {
-	System.out.println("requestCriticas: "+hsr.getRemoteAddr());
-	
-	System.out.println("DENTRO");
-	
-	List<Critica> criticasList=(List<Critica>)em.createNamedQuery("Critica.findAll").getResultList();//Consultar la lista de todas las lecciones
-	
-	System.out.println("SALIDA");
-	
-	CriticasJSON criticasJSON=new CriticasJSON();
-	List<CriticaJSON> criticaJSONList=new ArrayList<CriticaJSON>();
-	
-	
-	System.out.println(criticasList.size());
-	
-	
-	for(int i=0;i<criticasList.size();i++){//Para cada lección de la lista
-	Critica l=criticasList.get(i);
-	CriticaJSON lJSON=new CriticaJSON(l.getIdCritica(),l.getCritica(),l.getFecha(),l.getUsuario());//Crear objeto LessonJSON, copiando lessonCode y title
-	criticaJSONList.add(lJSON);//Añadir objeto LessonJSON creado a la lista lessonJSONList
+		System.out.println("Solicitud de añadir calificacion de: "+hsr.getRemoteAddr());
+		
+		Response response;
+		
+		List<Sitio> sitiosList=(List<Sitio>)em.createNamedQuery("Sitio.findAllBySitio").setParameter("sitio", calificacionJSON.getSitio()).getResultList();
+		
+		
+		System.out.println("Añadiendo nueva puntuacion de usuario en la DDBB");
+		System.out.println(calificacionJSON.getCalificacion());
+		System.out.println(calificacionJSON.getSitio());
+		System.out.println();
+		
+		int contador_base=sitiosList.get(0).getContador();
+		float puntuacion_base=sitiosList.get(0).getPuntuacion();
+		
+		float puntos_totales=puntuacion_base*contador_base+calificacionJSON.getCalificacion();
+		int contador_actualizado=contador_base+1;
+		
+		float nueva_puntuacion=puntos_totales/contador_actualizado;
+		
+		sitiosList.get(0).setContador(contador_actualizado);
+		sitiosList.get(0).setPuntuacion(nueva_puntuacion);
+		
+		em.persist(sitiosList.get(0));
+		
+		response=Response.status(200).entity("ok").build();
+		return response;	
+		
 	}
-	
-	System.out.println(criticaJSONList.size());
-	
-	criticasJSON.setCriticas(criticaJSONList);//Meter la lista lessonJSONList en el objeto lessonsJSON
-	
-	return criticasJSON;
-	
-	}*/
-	
 	
 }
